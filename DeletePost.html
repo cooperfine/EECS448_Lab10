@@ -1,0 +1,25 @@
+<html>
+<?php
+$mysqli = new mysqli("mysql.eecs.ku.edu", "c257f478", "thoo7Uih","c257f478");
+if ($mysqli->connect_errno) {printf("Connect failed: %s\n", $mysqli->connect_error);exit();}
+
+?>
+  <body>
+    <form action = "DeletePost.php" method = "post">
+      <h1> Posts: </h1>
+          <?php
+            $query = $mysqli->query("SELECT * FROM Posts");
+            if($query->num_rows != 0) {
+              while ($row = $query->fetch_assoc()) {
+          ?>
+           <input type = "checkbox" id = "author" name = "author" value = "<?php echo $row['content']; ?>">
+           <label for = "author"> <?php echo "User ID: "; echo $row['author_id']; echo "      Post: "; echo $row['content'];?> </label> <br>
+          <?php
+              }
+            }
+           ?>
+
+      <input type="submit"></input>
+    </form>
+  </body>
+</html>
